@@ -30,6 +30,7 @@ namespace Phinx\Console\Command;
 
 use Phinx\Config\NamespaceAwareInterface;
 use Phinx\Util\Util;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -132,7 +133,7 @@ class SeedCreate extends AbstractCommand
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
-     * @return void
+     * @return int
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -195,5 +196,7 @@ class SeedCreate extends AbstractCommand
 
         $output->writeln('<info>using seed base class</info> ' . $classes['$useClassName']);
         $output->writeln('<info>created</info> .' . str_replace(getcwd(), '', $filePath));
+
+        return Command::SUCCESS;
     }
 }

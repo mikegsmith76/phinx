@@ -28,6 +28,7 @@
  */
 namespace Phinx\Console\Command;
 
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -64,7 +65,7 @@ EOT
      *
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @return void
+     * @return int
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -94,7 +95,7 @@ EOT
         } else {
             $output->writeln('<error>Could not determine database name! Please specify a database name in your config file.</error>');
 
-            return;
+            return Command::FAILURE;
         }
 
         if (isset($envOptions['table_prefix'])) {
@@ -120,5 +121,7 @@ EOT
 
         $output->writeln('');
         $output->writeln('<comment>All Done. Took ' . sprintf('%.4fs', $end - $start) . '</comment>');
+
+        return Command::SUCCESS;
     }
 }
